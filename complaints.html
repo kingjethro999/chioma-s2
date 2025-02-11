@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #c8151b !important;
+            --sidebar-width: 230px;
+            --header-height: 60px;
+            --border-color: #ddd;
+            --transition-speed: 0.3s;
+        }
+
+        .text-blue-600 {
+            color: #2563eb;
+        }
+
+        .text-green-600 {
+            color: #059669;
+        }
+
+        .text-purple-600 {
+            color: #7c3aed;
+        }
+
+        .bg-blue-500 {
+            background-color: #3b82f6;
+        }
+
+        .bg-green-500 {
+            background-color: #10b981;
+        }
+
+        .bg-red-500 {
+            background-color: #ef4444;
+        }
+
+        .hover-bg-red-600:hover {
+            background-color: #dc2626;
+        }
+
+        .hover-bg-blue-600:hover {
+            background-color: #2563eb;
+        }
+
+        .hover-bg-green-600:hover {
+            background-color: #059669;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .bg-gray-50 {
+            --tw-bg-opacity: 1;
+            background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .bg-secondar {
+            background-color: var(--primary-color);
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            z-index: 10000;
+        }
+
+        .brand-header {
+            height: 60px;
+            background-color: var(--primary-color);
+        }
+
+        .brand-logo {
+            max-height: 70px;
+            object-fit: contain;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            color: #6B7280;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: #FEE2E2;
+            color: #6B7280;
+        }
+
+
+        .nav-icon {
+            width: 20px;
+            margin-right: 0.75rem;
+            text-align: center;
+        }
+
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            min-height: 100vh;
+        }
+
+        .active {
+            background-color: rgba(254, 242, 242, var(--tw-bg-opacity));
+        }
+
+        .mb-1 {
+            margin-bottom: 6px !important;
+        }
+
+        .py-3 {
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+
+        /* Mobile Styles */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close-sidebar {
+            display: none;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .profile-image {
+            width: 96px;
+            height: 96px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .header {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100% !important;
+            }
+
+            .mobile-toggle {
+                display: block !important;
+            }
+
+            .close-sidebar {
+                display: block;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar position-fixed h-100 bg-white border-end d-flex flex-column">
+            <div class="brand-header d-flex align-items-center justify-content-center">
+                <img src="./img/upscaled_lincoln.jpg" class="img-fluid p-2 h-auto brand-logo">
+            </div>
+
+            <button class="close-sidebar btn border-0 position-absolute top-0 end-0 m-3">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <nav class="p-3">
+                <a href="#" class="nav-item d-flex align-items-center rounded-3 mb-1 ">
+                    <i class="fas fa-home nav-icon"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item d-flex align-items-center rounded-3 mb-1">
+                    <i class="fas fa-clipboard-check nav-icon"></i>
+                    <span>Mark Attendance</span>
+                </a>
+                <a href="timetable.html" class="nav-item d-flex align-items-center rounded-3 mb-1">
+                    <i class="fas fa-calendar nav-icon"></i>
+                    <span>View Timetables</span>
+                </a>
+                <a href="#" class="nav-item d-flex align-items-center rounded-3 mb-1">
+                    <i class="fas fa-graduation-cap nav-icon"></i>
+                    <span>Check Results</span>
+                </a>
+                <a href="#" class="nav-item d-flex align-items-center rounded-3 mb-1">
+                    <i class="fas fa-credit-card nav-icon"></i>
+                    <span>Make Payments</span>
+                </a>
+                <a href="#" class="nav-item d-flex align-items-center rounded-3 mb-1">
+                    <i class="fas fa-chalkboard-teacher nav-icon"></i>
+                    <span>Book Tutoring</span>
+                </a>
+                <a href="#" class="nav-item d-flex align-items-center rounded-3 mb-1">
+                    <i class="fas fa-chalkboard nav-icon"></i>
+                    <span> Courses</span>
+                </a>
+                <a href="#" class="nav-item d-flex align-items-center rounded-3 mb-1">
+                    <i class="fas fa-bell nav-icon"></i>
+                    <span>Event Reminders</span>
+                </a>
+                <a href="#" class="nav-item d-flex align-items-center rounded-3 active">
+                    <i class="fas fa-address-book nav-icon"></i>
+                    <span>School Contact</span>
+                </a>
+            </nav>
+
+            <div class="p-3 mt-auto">
+                <a href="#" class="nav-item d-flex align-items-center rounded-3">
+                    <i class="fas fa-sign-out-alt nav-icon"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+
+        <!-- Sidebar Overlay do not touch -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="position-fixed bg-white border-bottom d-flex align-items-center px-3"
+                style="height: var(--header-height); width: calc(100% - var(--sidebar-width)); z-index: 999;">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col d-flex align-items-center">
+                            <button class="btn border-0 p-0 d-flex mobile-toggle d-none me-2">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-8 text-center">
+                            <input type="text" class="form-control mx-auto rounded-pill" placeholder="Search..."
+                                style="max-width: 500px;">
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <div class="rounded-circle ms-3"
+                                style="width: 40px; height: 40px; background-color: var(--primary-color);"></div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- HTML -->
+            <main class="container-fluid py-4 mt-5">
+                <!-- Complaints Section -->
+                <div class="container" id="complaints">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h5 class="mb-0">Submit a Complaint</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label class="form-label">Category</label>
+                                            <select class="form-select">
+                                                <option>Academics</option>
+                                                <option>Facilities</option>
+                                                <option>Tutoring</option>
+                                                <option>Staff</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                            <textarea class="form-control" rows="4"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Attachments</label>
+                                            <input type="file" class="form-control">
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="anonymous">
+                                            <label class="form-check-label" for="anonymous">Submit
+                                                Anonymously</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit Complaint</button>
+                                    </form>
+
+                                    <!-- Complaints Status -->
+                                    <div class="mt-4">
+                                        <h5>My Complaints</h5>
+                                        <div class="p-3 bg-light rounded mb-2">
+                                            <p class="mb-1"><strong>Category:</strong> Facilities</p>
+                                            <p class="mb-1">Submitted: 2024-01-30</p>
+                                            <span class="badge bg-info">In Review</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="./javascript/script.js"></script>
+    <script>
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const closeSidebar = document.querySelector('.close-sidebar');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.sidebar-overlay');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        mobileToggle.addEventListener('click', toggleSidebar);
+        closeSidebar.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+    </script>
+</body>
+
+</html>
